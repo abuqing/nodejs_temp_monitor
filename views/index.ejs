@@ -1,0 +1,67 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+    <script src="./javascripts/utils.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <style>
+      canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+      }
+    </style>
+    <meta http-equiv="refresh" content="600; URL=">
+	  <title>MyRoom</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+<body>
+<div class="wrapper">
+  <p><input type="button" 
+  onclick="location.href='http://localhost:3000/delall'" 
+  value="Delete All"></p>
+  
+<script type="text/javascript">
+  window.onload = function () {
+    var date = new Date();
+    var yyyy = date.getFullYear();
+    var mm = ("0"+(date.getMonth()+1)).slice(-2);
+    var dd = ("0"+date.getDate()).slice(-2);
+    document.getElementById("today").value=yyyy+'-'+mm+'-'+dd;
+  }
+</script>
+
+  <form action="/" method="post" class="board-form">
+    Delete from: <input type="date" id="today" name="deldate" class="input" required><br>
+    <button type="submit" class="submit">Run</button>
+  </form>
+  
+  <p>Number of records <%= Object.keys(boardList).length %></p>
+</div>
+
+<table border="1" rules="all" bgcolor="#f5f5f5">
+<tr>
+<th>DATE</th>
+<th>Celsius</th>
+<th>Humidity</th>
+</tr>
+	<% boardList.forEach(function(boardItem) { %>
+		<div class="board">
+			<tr>
+			<td class="board__date"><%= boardItem.date.toLocaleString() %></td>
+			<td class="board__name"><%= boardItem.Celsius %></td>
+			<td class="board__name"><%= boardItem.Humidity %></td>
+			</tr>
+		</div>
+            
+    <% }); %>
+</table>
+
+<div style="width:75%;">
+  <canvas id="myLineChart"></canvas>
+</div>
+<script src="./javascripts/myChart.js"></script>
+
+</body>
+</html>
