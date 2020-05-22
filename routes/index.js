@@ -43,7 +43,7 @@ MongoClient.connect(url, function(err, client) {
 	
     collection.find(query)
     .sort({date:-1})
-    .limit(99)
+    .limit(999)
     .toArray(function(err, docs) {
         if(docs){
             assert.equal(null, err);
